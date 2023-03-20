@@ -19,6 +19,7 @@ package com.example.android.trackmysleepquality.sleeptracker
 import android.app.Application
 import android.provider.SyncStateContract.Helpers.insert
 import android.provider.SyncStateContract.Helpers.update
+import android.text.method.TextKeyListener.clear
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -84,6 +85,16 @@ class SleepTrackerViewModel(
 
         private suspend fun update(night: SleepNight) {
                 database.update(night)
+        }
+
+        fun onClearAll() {
+                viewModelScope.launch {
+                        clear()
+                }
+        }
+
+        private suspend fun clear() {
+                database.clear()
         }
 }
 
